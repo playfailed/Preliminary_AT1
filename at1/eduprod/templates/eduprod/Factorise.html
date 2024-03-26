@@ -1,0 +1,47 @@
+{% extends "eduprod/layout.html" %}
+{% block body %}
+{% load static %}
+<h1>Factorising</h1>
+<p>To solve quadratic equations through factorization, follow these steps:</p>
+<ol>
+    <li>Identify the Quadratic Equation: <br>
+        A quadratic equation is in the form (ax^2 + bx + c = 0), 
+    </li>
+    <li>Factor the Equation: <br>
+        Look for two numbers that multiply to (ac) and add to (b).
+    </li>
+    <li>Set Each Factor Equal to Zero: <br>
+        Once you have the factors, set each factor equal to zero and solve for (x). <br>
+        This gives you the solutions to the quadratic equation.
+    </li>
+    <li>Verify the Solutions: <br>
+        Substitute each solution back into the original equation to verify that it is indeed a solution.
+    </li>
+</ol>
+
+<p>Solve the quadratic equation  <img src="{% static 'eduprod/X_Squared.png' %}" alt="x^2"> - 7<img src="{% static 'eduprod/X.png' %}" alt="x"> + 12 = 0).
+
+    Step 1: Identify the Quadratic Equation
+    The given equation is (x^2 - 7x + 12 = 0).
+    
+    Step 2: Factor the Equation
+    To factor the equation, we look for two numbers that multiply to (12) (the constant term) and add to (-7) (the coefficient of (x)). The numbers that satisfy these conditions are (-2) and (-6).
+    
+    So, the equation can be factored as:
+    
+    [x^2 - 7x + 12 = (x - 2)(x - 6)]
+    
+    Step 3: Set Each Factor Equal to Zero
+    Now, we set each factor equal to zero and solve for (x):
+    
+    For (x - 2 = 0), we find (x = 2).
+    For (x - 6 = 0), we find (x = 6).
+    Step 4: Verify the Solutions
+    To verify these solutions, we substitute (x = 2) and (x = 6) back into the original equation:
+    
+    For (x = 2), (2^2 - 7(2) + 12 = 4 - 14 + 12 = 0), which confirms (x = 2) is a solution.
+    For (x = 6), (6^2 - 7(6) + 12 = 36 - 42 + 12 = 0), which confirms (x = 6) is a solution.
+    Conclusion
+    The solutions to the quadratic equation (x^2 - 7x + 12 = 0) are (x = 2) and (x = 6).
+    </p>
+{% endblock %}
