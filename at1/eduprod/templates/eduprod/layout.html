@@ -2,19 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Factorise</title>
+    <title>Quadratics</title>
     <link href="{% static 'users/styles.css' %}" rel="stylesheet">
-    <script src="{% static 'eduprod/quiz.js' %}" defer></script>
 </head>
 <body>
     <div class="header">
         <div class="user-info">
             <span>{{ user.username }}</span>
-            <form action="{% url 'users:logout' %}" method="post" style="margin: 0; margin-left: 20px;">
+            <form action="{% url 'users:logout' %}" method="post">
                 {% csrf_token %}
                 <button type="submit">Log out</button>
             </form>
-            <form action="{% url 'eduprod:index' %}" method="post" style="margin: 0; margin-left: 20px;">
+            <form action="{% url 'eduprod:index' %}" method="post">
                 {% csrf_token %}
                 <button type="submit">Home</button>
             </form>
