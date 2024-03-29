@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Quadratics</title>
+    <title>Progress</title>
     <link href="{% static 'users/styles.css' %}" rel="stylesheet">
+    <script src="{% static 'eduprod/quiz.js' %}" defer></script>
     <nav>
         <ul>
             <li>
@@ -22,14 +23,6 @@
      </nav>
 </head>
 <body>
-    {% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}    
-    {% block body %}
-    {% endblock %}
+    <h1>Progress Check</h1>
 </body>
 </html>

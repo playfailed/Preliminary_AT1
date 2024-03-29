@@ -1,5 +1,15 @@
 {% extends "eduprod/layout.html" %}
 {% block body %}
-<div id="content" data-questions='{{ questions_json|safe }}'></div>
-<button id="revealBtn">Reveal Answer</button> 
+
+<h1>Login in as, {{user.username}}</h1>
+
+<div class="grid-container">
+    <a href="{% url 'eduprod:Factorise' %}">Factorise</a>
+    <a href="{% url 'eduprod:Complete' %}">Completing the Square</a>
+    <a href="{% url 'eduprod:Formula' %}">Quadratic Formula</a>
+    <a href="{% url 'eduprod:Test' %}">Practice Your Knowledge</a>
+    <a href="{% url 'eduprod:Progress' %}">Check Progress</a>
+</div>
+
 {% endblock %}
+

@@ -1,0 +1,72 @@
+{% extends "eduprod/layout.html" %}
+{% block body %}
+<h1>Quadratic Formula</h1>
+<p>To solve quadratic equations through Quadratic Formula, follow these steps:</p>
+<ol>
+    <li>Identify the Quadratic Equation: <br>
+        A quadratic equation is in the form ax<sup>2</sup> + bx + c = 0, 
+    </li>
+    <br>
+    <li>Substitute the Terms: <br>
+        Replace the constants with the numbers.
+        x = <fraction><numerator>-b ± √<root>b<sup>2</sup> - 4ac</root></numerator><denominator>2a</denominator></fraction>
+    </li>
+    <br>
+    <li>Solve for x: <br>
+        Simplify and Solve for x.
+    </li>
+    <br>
+    <li>Verify the Solutions: <br>
+        Substitute each solution back into the original equation to verify that it is indeed a solution.
+    </li>
+</ol>
+
+<p>Here is an Example.</p>
+<p>Solve the quadratic equation: x<sup>2</sup> + x - 1 = 0 </p>
+
+<ol>
+    <li>Identify the Quadratic Equation: <br>
+        x<sup>2</sup> - x - 1 = 0 <br>
+        a = 1, <br>
+        b = -1, <br>
+        c = -1. <br>
+    </li>
+    <br>
+    <li>Substitute the Terms: <br>
+        x = <fraction><numerator>-b ± √<root>b<sup>2</sup> - 4ac</root></numerator><denominator>2a</denominator></fraction> <br>
+        x = <fraction><numerator>-(-1) ± √<root>(-1)<sup>2</sup> - 4 * (1) * (-1)</root></numerator><denominator>2 * (1)</denominator></fraction>
+        
+    </li>
+    <br>
+    <li>Solve for x: <br>
+        x = <fraction><numerator>1 ± √<root>5</root></numerator><denominator>2</denominator></fraction> <br>
+        Hence, x = <fraction><numerator>1 ± √<root>5</root></numerator><denominator>2</denominator></fraction>
+    <br>
+    <li>Verify the Solutions: <br>
+        Substitute each solution back into the original equation to verify that it is indeed a solution. <br>
+        <br>
+        (<fraction><numerator>1 + √<root>5</root></numerator><denominator>2</denominator></fraction>)<sup>2</sup> - (<fraction><numerator>1 + √<root>5</root></numerator><denominator>2</denominator></fraction>) - 1 = 0,  <br>
+        <fraction><numerator>(1 + √<root>5</root>)<sup>2</sup></numerator><denominator>2<sup>2</sup></denominator></fraction> - <fraction><numerator>1 + √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>1 + 2√<root>5</root> + 5</numerator><denominator>4</denominator></fraction> - <fraction><numerator>1 + √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>6 + 2√<root>5</root></numerator><denominator>4</denominator></fraction> - <fraction><numerator>1 + √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>3 + √<root>5</root></numerator><denominator>2</denominator></fraction> - <fraction><numerator>1 + √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>2</numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        1 - 1 = 0,  <br>
+        0 = 0. <br>
+        <br>
+        (<fraction><numerator>1 - √<root>5</root></numerator><denominator>2</denominator></fraction>)<sup>2</sup> - (<fraction><numerator>1 - √<root>5</root></numerator><denominator>2</denominator></fraction>) - 1 = 0,  <br>
+        <fraction><numerator>(1 - √<root>5</root>)<sup>2</sup></numerator><denominator>2<sup>2</sup></denominator></fraction> - <fraction><numerator>1 - √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>1 - 2√<root>5</root> + 5</numerator><denominator>4</denominator></fraction> - <fraction><numerator>1 - √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>6 - 2√<root>5</root></numerator><denominator>4</denominator></fraction> - <fraction><numerator>1 - √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>3 - √<root>5</root></numerator><denominator>2</denominator></fraction> - <fraction><numerator>1 - √<root>5</root></numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        <fraction><numerator>2</numerator><denominator>2</denominator></fraction> - 1 = 0,  <br>
+        1 - 1 = 0,  <br>
+        0 = 0. <br>
+    </li>
+</ol>
+
+<form action="{% url 'eduprod:Quiz' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Practice</button>
+</form>
+{% endblock %}

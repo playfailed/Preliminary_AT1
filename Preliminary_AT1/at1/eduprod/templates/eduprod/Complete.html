@@ -1,0 +1,128 @@
+{% extends "eduprod/layout.html" %}
+{% block body %} 
+<h1>Factorising</h1>
+<p>To solve quadratic equations through factorization, follow these steps:</p>
+<ol>
+    <li>Identify the Quadratic Equation: <br>
+        A quadratic equation is in the form ax^2 + bx + c = 0, 
+    </li>
+    <br>
+    <li>Factor the Equation: <br>
+        Look for two numbers that multiply to ac and add to b.
+    </li>
+    <br>
+    <li>Set Each Factor Equal to Zero: <br>
+        Once you have the factors, set each factor equal to zero and solve for x. <br>
+        This gives you the solutions to the quadratic equation.
+    </li>
+    <br>
+    <li>Verify the Solutions: <br>
+        Substitute each solution back into the original equation to verify that it is indeed a solution.
+    </li>
+</ol>
+
+<p>Here is an Example.</p>
+<p>Solve the quadratic equation: x<sup>2</sup> - 7x + 12 = 0 </p>
+
+<ol>
+    <li>Identify the Quadratic Equation: <br>
+        x<sup>2</sup> - 7x + 12 = 0. <br>
+        a = 1, <br>
+        b = -8,  <br>
+        c = 12.  <br>
+    </li>
+    <br>
+    <li>Factor the Equation: <br>
+        Look for two numbers that multiply to ac and add to b. <br>
+        -3 * -4 = 12 (ac), <br>
+        -3 + -4 = -7 (b), <br>
+        Hence, the Factor form would be (x - 3)(x - 4) = 0
+    </li>
+    <br>
+    <li>Set Each Factor Equal to Zero: <br>
+        Solve for x through the null factor law which is [ab = 0] either a or b is 0. <br>
+        <br>
+        x - 3 = 0. <br>
+        x = 3 <br>
+        <br>
+        x - 4 = 0. <br>
+        x = 4 <br>
+    </li>
+    <br>
+    <li>Verify the Solutions: <br>
+        Substitute each solution back into the original equation to verify that it is indeed a solution. <br>
+        <br>
+        (3)<sup>2</sup> - 7 * (3) + 12 = 0,  <br>
+        9 - 21 + 12 = 0, <br>
+        0 = 0. <br>
+        <br>
+        (4)<sup>2</sup> - 7 * (4) + 12 = 0,  <br>
+        16 - 28 + 12 = 0, <br>
+        0 = 0.
+    </li>
+</ol>
+
+<p>Hence, the solutions to the quadratic equation x<sup>2</sup> - 7x + 12 = 0 are x = 2 and x = 6.</p>
+
+<p>Here is another Example.</p>
+<p>Solve the factorise and solve the equation: 4x<sup>2</sup> - 9  </p>
+
+<ol>
+    <li>Identify the Quadratic Equation: <br>
+        4x<sup>2</sup> - 9. <br>
+        a = 4, <br>
+        b = 0,  <br>
+        c = -9.  <br>
+    </li>
+    <br>
+    <li>Factor the Equation: <br>
+        Look for two numbers that multiply to ac and add to b. <br>
+        However there are no solutions via this method so we will have to have use the differences of square to factorise our expression.  <br>
+        Using a<sup>2</sup> - b<sup>2</sup> = (a + b)(a - b): <br> 
+        <br>
+        a<sup>2</sup> = (2x)<sup>2</sup>, <br>
+        a = 2x, <br>
+        <br>
+        b<sup>2</sup> = (3)<sup>2</sup>, <br>
+        b = 3, <br>
+        <br>
+        Hence, the Factor form would be (2x + 3)(2x - 3).
+    </li>
+    <br>
+    <li>Set Each Factor Equal to Zero: <br>
+        (2x + 3)(2x - 3) = 0. <br>
+        <br>
+        Solve for x through the null factor law which is [ab = 0] either a or b is 0. <br>
+        <br>
+        2x - 3 = 0. <br>
+        2x = 3 <br>
+        x = <fraction><numerator>3</numerator><denominator>2</denominator></fraction>
+        <br>
+        2x + 3 = 0. <br>
+        2x = -3 <br>
+        x = -<fraction><numerator>3</numerator><denominator>2</denominator></fraction>
+    </li>
+    <br>
+    <li>Verify the Solutions: <br>
+        Substitute each solution back into the original equation to verify that it is indeed a solution. <br>
+        <br>
+        4 * (<fraction><numerator>3</numerator><denominator>2</denominator></fraction>)<sup>2</sup> - 9 = 0,  <br>
+        4 * (<fraction><numerator>9</numerator><denominator>4</denominator></fraction>) - 9 = 0,  <br>
+        9 - 9 = 0,  <br>
+        0 = 0. <br>
+        <br>
+        4 * (-<fraction><numerator>9</numerator><denominator>4</denominator></fraction>)<sup>2</sup> - 9 = 0,  <br>
+        4 * (<fraction><numerator>9</numerator><denominator>4</denominator></fraction>) - 9 = 0,  <br>
+        9 - 9 = 0,  <br>
+        0 = 0. <br>
+    </li>
+</ol>
+
+<p>Hence, the solutions to the quadratic equation 4x<sup>2</sup> - 9 = 0 are x = ±<fraction><numerator>3</numerator><denominator>2</denominator></fraction>.</p>
+
+<form action="{% url 'eduprod:Quiz' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Practice</button>
+</form>
+
+{% endblock %}
