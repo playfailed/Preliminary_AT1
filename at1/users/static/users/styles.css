@@ -1,0 +1,120 @@
+
+/*.question, .answer { margin: 20px; font-size: 20px; }
+#revealBtn { margin: 20px; font-size: 16px; cursor: pointer; } */
+
+fraction, numerator, denominator {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 2px;
+}
+
+fraction {
+    display: inline-block;
+    text-align: center;
+}
+
+denominator {
+    border-top: 1px solid;
+    display: block;
+}
+
+root{
+    text-decoration:overline;
+}
+   
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #666;
+    border: solid #ccc;
+}
+  
+nav li button {
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    float: right;
+    background-color: #666;
+    border-left: 3px solid #ccc;
+    font-size: 20px;
+}
+
+nav li button:hover {
+    background-color: black;
+}
+
+body{
+    background-color: #bbb;
+}
+
+body p{
+    font-size: 16px; /* Adjust font size */
+    line-height: 1.6; /* Adjust line height for readability */
+    margin-top: 20px; /* Add space above the paragraph */
+}
+
+ol, ul.points {
+    margin-left: 20px; /* Indent the list */
+    display: inline-block;
+    padding: 20px; /* Adds padding inside the block */
+    background-color: #f0f0f0; /* Light grey background for visual distinction */
+    margin-bottom: 20px; /* Adds space below the block */
+    width: auto;
+    border: solid #ccc;
+}
+
+body button {
+    display: block;
+    margin: auto;
+    size: 50px;
+    border: solid #ccc;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+body button:hover{
+    background-color: #ddd; /* Green */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates 3 columns of equal width */
+    grid-template-rows: repeat(2, 1fr); /* Creates 2 rows of equal height */
+    gap: 10px; /* Adds a gap between grid items */
+    padding: 10px; /* Adds padding around the grid */
+}
+
+.grid-container a {
+    background-color: #f0f0f0; /* Light grey background */
+    padding: 20px; /* Padding around the link text */
+    text-align: center; /* Centers the text */
+    text-decoration: none; /* Removes the underline */
+    color: #333; /* Dark grey text color */
+    padding: 40px;
+    font-size: 30px;
+    border: solid #ccc;
+}
+
+.grid-container a:hover {
+    background-color: #ddd; /* Slightly darker grey on hover */
+}
+
+@media (max-width: 600px) {
+    .grid-container {
+       grid-template-columns: 1fr; /* Stacks items into a single column */
+       grid-template-rows: repeat(5, 1fr); /* Adjusts the number of rows */
+    }
+   }
+
+h1 {
+    text-align: center;
+    display: block;
+    padding: 20px;
+    font-family: Verdana, sans-serif;
+}
+   
