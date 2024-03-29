@@ -1,20 +1,15 @@
 {% extends "eduprod/layout.html" %}
 {% block body %}
-<form action="{% url 'eduprod:Factorise' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Factorise</button>
-</form>
-<form action="{% url 'eduprod:Complete' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Completing the Square</button>
-</form>
-<form action="{% url 'eduprod:Formula' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Quadratic Formula</button>
-</form>
-<form action="{% url 'eduprod:Test' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Practice Your Knowledge</button>
-</form>
+
+<h1>Login in as, {{user.username}}</h1>
+
+<div class="grid-container">
+    <a href="{% url 'eduprod:Factorise' %}">Factorise</a>
+    <a href="{% url 'eduprod:Complete' %}">Completing the Square</a>
+    <a href="{% url 'eduprod:Formula' %}">Quadratic Formula</a>
+    <a href="{% url 'eduprod:Test' %}">Practice Your Knowledge</a>
+    <a href="{% url 'eduprod:Progress' %}">Check Progress</a>
+</div>
+
 {% endblock %}
 

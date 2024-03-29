@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Quadratics</title>
+    <title>Progress</title>
     <link href="{% static 'users/styles.css' %}" rel="stylesheet">
+    <script src="{% static 'eduprod/quiz.js' %}" defer></script>
     <nav>
         <ul>
             <li>
@@ -28,8 +29,6 @@
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
         </ul>
-    {% endif %}    
-    {% block body %}
-    {% endblock %}
+        <div id="content" data-questions='{{ questions_json|safe }}'></div>
 </body>
 </html>

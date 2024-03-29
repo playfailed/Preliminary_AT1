@@ -96,32 +96,33 @@
         <br>
         2x - 3 = 0. <br>
         2x = 3 <br>
-        x = <sup>3</sup>&frasl;<sub>2</sub>
+        x = <fraction><numerator>3</numerator><denominator>2</denominator></fraction>
         <br>
         2x + 3 = 0. <br>
         2x = -3 <br>
-        x = -<sup>3</sup>&frasl;<sub>2</sub>
+        x = -<fraction><numerator>3</numerator><denominator>2</denominator></fraction>
     </li>
     <br>
     <li>Verify the Solutions: <br>
         Substitute each solution back into the original equation to verify that it is indeed a solution. <br>
         <br>
-        4 * (<sup>3</sup>&frasl;<sub>2</sub>)<sup>2</sup> - 9 = 0,  <br>
-        4 * (<sup>9</sup>&frasl;<sub>4</sub>) - 9 = 0,  <br>
+        4 * (<fraction><numerator>3</numerator><denominator>2</denominator></fraction>)<sup>2</sup> - 9 = 0,  <br>
+        4 * (<fraction><numerator>9</numerator><denominator>4</denominator></fraction>) - 9 = 0,  <br>
         9 - 9 = 0,  <br>
         0 = 0. <br>
         <br>
-        4 * (-<sup>3</sup>&frasl;<sub>2</sub>)<sup>2</sup> - 9 = 0,  <br>
-        4 * (<sup>9</sup>&frasl;<sub>4</sub>) - 9 = 0,  <br>
+        4 * (-<fraction><numerator>9</numerator><denominator>4</denominator></fraction>)<sup>2</sup> - 9 = 0,  <br>
+        4 * (<fraction><numerator>9</numerator><denominator>4</denominator></fraction>) - 9 = 0,  <br>
         9 - 9 = 0,  <br>
         0 = 0. <br>
     </li>
 </ol>
 
-<p>Hence, the solutions to the quadratic equation 4x<sup>2</sup> - 9 = 0 are x = ±<sup>3</sup>&frasl;<sub>2</sub>.</p>
+<p>Hence, the solutions to the quadratic equation 4x<sup>2</sup> - 9 = 0 are x = ±<fraction><numerator>3</numerator><denominator>2</denominator></fraction>.</p>
 
 <form action="{% url 'eduprod:Quiz' %}" method="post">
     {% csrf_token %}
     <button type="submit">Practice</button>
 </form>
+
 {% endblock %}

@@ -23,3 +23,6 @@ def Test(request):
 
 def Quiz(request):
     return render(request, 'eduprod/Quiz.html')
+
+def Progress(request):
+    return render(request, 'eduprod/Quiz.html')
