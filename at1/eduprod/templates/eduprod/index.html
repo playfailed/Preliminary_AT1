@@ -1,5 +1,6 @@
 {% extends "eduprod/layout.html" %}
 {% block body %}
+<<<<<<< HEAD
 
 <h1>Login in as, {{user.username}}</h1>
 
@@ -13,3 +14,22 @@
 
 {% endblock %}
 
+=======
+<form action="{% url 'eduprod:Factorise' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Factorise</button>
+</form>
+<form action="{% url 'eduprod:Complete' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Completing the Square</button>
+</form>
+<form action="{% url 'eduprod:Formula' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Quadratic Formula</button>
+</form>
+<form action="{% url 'eduprod:Test' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Practice Your Knowledge</button>
+</form>
+{% endblock %}
+>>>>>>> parent of 2250521 (Structure 1.1)

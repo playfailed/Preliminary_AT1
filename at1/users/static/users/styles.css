@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /*.question, .answer { margin: 20px; font-size: 20px; }
 #revealBtn { margin: 20px; font-size: 16px; cursor: pointer; } */
@@ -96,3 +97,8 @@ h1 {
     text-align: center;
 }
    
+=======
+body { font-family: Arial, sans-serif; padding: 20px; }
+.question, .answer { margin: 20px; font-size: 20px; }
+#revealBtn { margin: 20px; font-size: 16px; cursor: pointer; }
+>>>>>>> parent of 2250521 (Structure 1.1)
