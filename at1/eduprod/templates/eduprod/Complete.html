@@ -125,10 +125,5 @@
 <p>Hence, there are no real solutions.</p>
 <p>The imaginary solutions to the quadratic equation 2x<sup>2</sup> + 3x + 9 = 0 are x = <fraction><numerator>- 3 ± 3√<root>-7</root></numerator><denominator>4</denominator></fraction></p>
 
-
-<form action="{% url 'eduprod:Quiz' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Practice</button>
-</form>
-
+<button onclick="hideElements('Complete')">Practice</button>
 {% endblock %}

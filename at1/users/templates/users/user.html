@@ -1,5 +1,8 @@
 {% extends "users/layout.html" %}
 {% block body %}
     <h1>Welcome, {{ request.user.username }}</h1>
-    <a href="{% url 'eduprod:index' %}">Enter</a>
+    <ul class="grid-container">
+        <a href="{% url 'eduprod:index' %}" style="grid-column: 1 / 2 span;">Enter</a>
+    </ul>
+    
 {% endblock %}

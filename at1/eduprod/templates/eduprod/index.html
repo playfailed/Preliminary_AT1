@@ -1,14 +1,14 @@
 {% extends "eduprod/layout.html" %}
 {% block body %}
 
-<h1>Login in as, {{user.username}}</h1>
+<h1>Login as, {{user.username}}</h1>
 
 <div class="grid-container">
     <a href="{% url 'eduprod:Factorise' %}">Factorise</a>
     <a href="{% url 'eduprod:Complete' %}">Completing the Square</a>
     <a href="{% url 'eduprod:Formula' %}">Quadratic Formula</a>
     <a href="{% url 'eduprod:Test' %}">Practice Your Knowledge</a>
-    <a href="{% url 'eduprod:Progress' %}">Check Progress</a>
+    <a href="{% url 'eduprod:Progress' %}" style="grid-column: 1 / 2 span;">Check Progress</a>
 </div>
 
 {% endblock %}

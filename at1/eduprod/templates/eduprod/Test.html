@@ -31,9 +31,7 @@
     <li>Functions </li>
 </ul>
 
-<form action="{% url 'eduprod:Quiz' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Practice</button>
-</form>
+
+<button onclick="hideElements('Test')">Practice</button>
 
 {% endblock %}
