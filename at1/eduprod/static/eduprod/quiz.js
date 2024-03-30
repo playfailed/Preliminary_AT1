@@ -2,6 +2,11 @@ function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
   
+function randomchoice(Choices) {
+    let Choosen = randomIntFromInterval(1, Choices.length)
+    return Choices[Choosen]
+}
+
 function Factorable_Quadratic(table) {
     let root1 = randomIntFromInterval(table.root1min, table.root1max);
     let root2 = randomIntFromInterval(table.root2min, table.root2max);
@@ -50,12 +55,13 @@ function FormatNumber(num, constant) {
     return str;
 }
 
-function hideElements(Catergory) {
+
+
+function hideElements(SectionCatergory) {
     var allElements = document.body.getElementsByTagName('*');
     for (var i = 0; i < allElements.length; i++) {
         allElements[i].style.display = 'none';
     }
-
 
     const body = document.querySelector('body');
     const quizelement = document.createElement("div");
@@ -68,11 +74,39 @@ function hideElements(Catergory) {
         questionsectionselement.style.float = 'left';
 
         const questionelement = document.createElement('li');
+        const instructionelement = document.createElement('li');
 
         questionsectionselement.appendChild(questionelement);
         quizelement.appendChild(questionsectionselement);
 
-        if (Catergory == "Factorise") {
+        var answers;
+
+        const form = document.createElement('form');
+        const label = document.createElement('label');
+        const ans1input = document.createElement('input');
+        const ans2input = document.createElement('input');
+        const submitButton = document.createElement('input');
+
+        form.setAttribute('action', '/action_page.php');
+        label.setAttribute('for', 'fname');
+        label.textContent = 'x = ';
+        ans1input.setAttribute('type', 'text');
+        ans1input.setAttribute('id', 'fname');
+        ans1input.setAttribute('name', 'fname');
+        ans2input.setAttribute('type', 'text');
+        ans2input.setAttribute('id', 'lname');
+        ans2input.setAttribute('name', 'lname');
+        submitButton.setAttribute('type', 'submit');
+        submitButton.setAttribute('value', 'Submit');
+
+        form.appendChild(label);
+        form.appendChild(fnameInput);
+        form.appendChild(lnameInput);
+        form.appendChild(submitButton);
+
+        questionsectionselement.appendChild(form);
+
+        if (SectionCatergory == "Factorise") {
             var quadratic = Non_Fraction_Quadratic({
                 amin: 1,
                 amax: Math.ceil(i/3),
@@ -82,9 +116,12 @@ function hideElements(Catergory) {
                 root2max: i*3,
             });
 
+            let questionsubcategory = randomchoice(['Solve','Factor'])
             questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + '';
+            answers = [quadratic.root1,quadratic.root2]
+
+
             
-            console.log(quadratic.a,quadratic.b,quadratic.c,quadratic.root1,quadratic.root2);
         }
     }   
 }
