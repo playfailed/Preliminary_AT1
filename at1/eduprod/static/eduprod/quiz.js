@@ -63,6 +63,7 @@ function hideElements(SectionCatergory) {
 
     const body = document.querySelector('body');
     const quizelement = document.createElement("div");
+    quizelement.classList.add("grid-container");
     body.appendChild(quizelement);
     
     var answers = []
@@ -83,10 +84,18 @@ function hideElements(SectionCatergory) {
         quizelement.appendChild(questionsectionselement);
 
         const form = document.createElement('form');
+        const ans0input = document.createElement('input');
         const ans1input = document.createElement('input');
         const ans2input = document.createElement('input');
+        const label0 = document.createElement('label');
+        const label1 = document.createElement('label');
+        const label2 = document.createElement('label');
         const submitButton = document.createElement('input');
-
+        
+        ans0input.setAttribute('type', 'text');
+        ans0input.setAttribute('name', i + 'answer0'); 
+        ans0input.setAttribute('placeholder', 'Answer 0'); 
+        ans0input.style.display = "none";
         ans1input.setAttribute('type', 'text');
         ans1input.setAttribute('name', i + 'answer1'); 
         ans1input.setAttribute('placeholder', 'Answer 1'); 
@@ -96,8 +105,13 @@ function hideElements(SectionCatergory) {
         submitButton.setAttribute('type', 'submit');
         submitButton.setAttribute('id', i);
         submitButton.setAttribute('value', 'Submit');
+        submitButton.style.float = "right";
 
+        form.appendChild(label0);
+        form.appendChild(ans0input);
+        form.appendChild(label1);
         form.appendChild(ans1input);
+        form.appendChild(label2);
         form.appendChild(ans2input);
         form.appendChild(submitButton);
 
@@ -107,6 +121,7 @@ function hideElements(SectionCatergory) {
             event.preventDefault();
         
             var questionnumber = submitButton.id
+            var ans0Value = ans0input.value; 
             var ans1Value = ans1input.value; 
             var ans2Value = ans2input.value; 
 
@@ -142,8 +157,38 @@ function hideElements(SectionCatergory) {
                     questionsectionselement.style.backgroundColor = "red";
                     questionelement.innerHTML = "Answer was " + FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
                 }
+            } else if (instructionelement.innerText == 'Factorise using complete the square') {
+                var d = answers[questionnumber-1].b/(2 * answers[questionnumber-1].a);
+                var e = answers[questionnumber-1].c - ((answers[questionnumber-1].b ** 2)/(4 * answers[questionnumber-1].a));
+                
+                console.log(ans0Value,ans1Value,ans2Value)
+                console.log(answers[questionnumber-1].a,e,d)
+                console.log(Number(ans0Value) === answers[questionnumber-1].a, Number(ans1Value) === d, Number(ans2Value) == e)
+                if (Number(ans0Value) === answers[questionnumber-1].a && Number(ans1Value) === d && Number(ans2Value) == e) {
+                    questionsectionselement.style.backgroundColor = "green";
+                } else {
+                    questionsectionselement.style.backgroundColor = "red";
+                    questionelement.innerHTML = "Answer was " + FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(d,"") + ")<sup>2</sup> " + FormatNumber(e,"")
+                }
+            } else if (instructionelement.innerText == 'Solve for x with ±') {
+                var M = ((-answers[questionnumber-1].b)/(2 * answers[questionnumber-1].a))/answers[questionnumber-1].a;
+                var D = M**2 - answers[questionnumber-1].c
+                var Imginary = D < 0
+                D = Math.abs(D)
+                var U = (D)**0.5;
+                var issimplifedroot = Number.isInteger(U);
+
+                console.log(ans0Value,ans1Value,ans2Value)
+                console.log(Number(ans1Value) === "√"+D, Number(ans1Value) === U)
+                if (Number(ans0Value) === M && (Number(ans1Value) === "√"+D || Number(ans1Value) === U) && ans2Value.includes('i') == Imginary) {
+                    questionsectionselement.style.backgroundColor = "green";
+                } else {
+                    questionsectionselement.style.backgroundColor = "red";
+                    questionelement.innerHTML = "Answer was " + M + " ± " + (issimplifedroot ? U : "√<root>"+D+"</root>") + (Imginary ? "i" : "");
+                }
             }
 
+            ans0input.disabled = true;
             ans1input.disabled = true;
             ans2input.disabled = true;
             submitButton.disabled = true;
@@ -163,17 +208,20 @@ function hideElements(SectionCatergory) {
             if (isdone) {
                 const endblock = document.createElement('ul');
                 endblock.classList.add('points');
-                body.appendChild(endblock);
+                quizelement.appendChild(endblock);
                 
                 const exit = document.createElement('a');
-                exit.innerText = "Exit"
-                exit.style.color = "black"
+                exit.innerText = "Exit";
+                exit.style.color = "black";
+                exit.style.padding = "0px";
+                exit.style.margin = "auto";
+                exit.style.float = "rightl";
                 exit.setAttribute('href', "");
                 endblock.appendChild(exit);
             }
-
-            console.log(isdone, "final")
         });
+
+        console.log(SectionCatergory)
 
         if (SectionCatergory == "Factorise") {
             var quadratic = Non_Fraction_Quadratic({
@@ -197,6 +245,7 @@ function hideElements(SectionCatergory) {
        
             if (questionsubcategory === 'Solve for x') {
                 questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + ' = 0';
+                label1.innerHTML = "x = ";
             }
             else if (questionsubcategory === 'Factorise Fully') {
                 questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'');
@@ -205,6 +254,77 @@ function hideElements(SectionCatergory) {
             }
 
             
+        } else if (SectionCatergory == "Complete") {
+            var quadratic = Non_Fraction_Quadratic({
+                amin: 1,
+                amax: Math.ceil(i/3),
+                root1min: -i*3,
+                root1max: i*3,
+                root2min: -i*3,
+                root2max: i*3,
+            });
+
+            let questionsubcategory = randomchoice(['Solve for x with ±','Factorise using complete the square'])   
+       
+            if (questionsubcategory === 'Solve for x with ±') {
+                questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + ' = 0';
+                ans0input.style.display = "inline";
+                label0.innerHTML = "x =";
+                ans0input.setAttribute('placeholder', 'α');
+                label1.innerHTML = "±";
+                ans1input.setAttribute('placeholder', 'β');
+                ans2input.setAttribute('placeholder', 'add i if √-1');
+            }
+            else if (questionsubcategory === 'Factorise using complete the square') {
+                questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'');
+                ans0input.style.display = "inline";
+                ans0input.setAttribute('placeholder', 'a');
+                label1.innerHTML = "(x ";
+                ans1input.setAttribute('placeholder', '± α');
+                label2.innerHTML = ")<sup>2</sup> ";
+                ans2input.setAttribute('placeholder', '± β');
+            }
+
+            instructionelement.innerText = questionsubcategory
+            answers.push({
+                root1: quadratic.root1,
+                root2: quadratic.root2, 
+                a: quadratic.a,
+                b: quadratic.b,
+                c: quadratic.c,
+                mid: quadratic.mid,
+            });
+        } else if (SectionCatergory == "Formula") {
+            var quadratic = Factorable_Quadratic({
+                amin: 1,
+                amax: i,
+                root1min: -i*i,
+                root1max: i*i,
+                root2min: -i*i,
+                root2max: i*i,
+            });
+
+            let questionsubcategory = randomchoice(['Solve for x with ±'])   
+       
+            if (questionsubcategory === 'Solve for x with ±') {
+                questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + ' = 0';
+                ans0input.style.display = "inline";
+                label0.innerHTML = "x =";
+                ans0input.setAttribute('placeholder', 'α');
+                label1.innerHTML = "±";
+                ans1input.setAttribute('placeholder', 'β');
+                ans2input.setAttribute('placeholder', 'add i if √-1');
+            }
+
+            instructionelement.innerText = questionsubcategory
+            answers.push({
+                root1: quadratic.root1,
+                root2: quadratic.root2, 
+                a: quadratic.a,
+                b: quadratic.b,
+                c: quadratic.c,
+                mid: quadratic.mid,
+            });
         }
 
 
