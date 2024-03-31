@@ -46,7 +46,7 @@ function FormatNumber(num, constant) {
     if (str.includes("-")) {
         str = str.replace('-', '- ')
     } 
-    else if (constant !== "x<sup>2</sup>" && constant !== "(") {
+    else if (constant !== "x<sup>2</sup>" && constant !== "(" && constant !== "x(") {
         str = "+ " + str 
     }
     
@@ -118,6 +118,7 @@ function hideElements(SectionCatergory) {
                     questionsectionselement.style.backgroundColor = "green";
                 } else {
                     questionsectionselement.style.backgroundColor = "red";
+                    questionelement.innerHTML = "Answer was x = " + answers[questionnumber-1].root1 + " or " + answers[questionnumber-1].root2
                 }
             } else if (instructionelement.innerText === 'Factorise Fully') {
                 var conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")"
@@ -131,22 +132,47 @@ function hideElements(SectionCatergory) {
                     conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
                     conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")x";
                 } else if (answers[questionnumber-1].root2 === 0) {
-                    conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")";
-                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")x";
+                    conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"x(z;") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")";
+                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")x";
                 }
-
-                console.log(ans1Value,conition1, conition2, FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")")
 
                 if (conition1 || conition2) {
                     questionsectionselement.style.backgroundColor = "green";
                 } else {
                     questionsectionselement.style.backgroundColor = "red";
+                    questionelement.innerHTML = "Answer was " + FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
                 }
             }
 
             ans1input.disabled = true;
             ans2input.disabled = true;
             submitButton.disabled = true;
+
+            var isdone = true
+
+            for (const child of quizelement.children) {
+                var form = child.querySelector('form');
+                for (const input of form.children) {
+                    if (input.disabled === false) {
+                        isdone = false
+                        break
+                    }
+                }
+            }
+
+            if (isdone) {
+                const endblock = document.createElement('ul');
+                endblock.classList.add('points');
+                body.appendChild(endblock);
+                
+                const exit = document.createElement('a');
+                exit.innerText = "Exit"
+                exit.style.color = "black"
+                exit.setAttribute('href', "");
+                endblock.appendChild(exit);
+            }
+
+            console.log(isdone, "final")
         });
 
         if (SectionCatergory == "Factorise") {
