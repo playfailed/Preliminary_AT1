@@ -3,7 +3,7 @@ function randomIntFromInterval(min, max) {
 }
   
 function randomchoice(Choices) {
-    let Choosen = randomIntFromInterval(1, Choices.length)
+    let Choosen = randomIntFromInterval(0, Choices.length-1)
     return Choices[Choosen]
 }
 
@@ -13,7 +13,7 @@ function Factorable_Quadratic(table) {
     let pm = Math.round(Math.random()) % 2 === 0 ? -1 : 1;
     
 	var a = pm * randomIntFromInterval(table.amin, table.amax);
-    var b = a * root1 + a * root2;
+    var b = a * -root1 + a * -root2;
     var c = a * root1 * root2;
 
     return {a, b, c, root1, root2};
@@ -39,23 +39,21 @@ function FormatNumber(num, constant) {
     if (num === 1 && constant !== "") {
         str = str.replace('1', '');
     }
-    else if (num === -1 && !constant !== "") {
+    else if (num === -1 && constant !== "") {
         str = str.replace('-1', '-');
     }
 
     if (str.includes("-")) {
         str = str.replace('-', '- ')
     } 
-    else if (constant !== "x<sup>2</sup>") {
+    else if (constant !== "x<sup>2</sup>" && constant !== "(") {
         str = "+ " + str 
     }
     
     str = str + constant;
-    
+
     return str;
 }
-
-
 
 function hideElements(SectionCatergory) {
     var allElements = document.body.getElementsByTagName('*');
@@ -67,6 +65,8 @@ function hideElements(SectionCatergory) {
     const quizelement = document.createElement("div");
     body.appendChild(quizelement);
     
+    var answers = []
+
     for (var i = 1; i <= 15; i++) {
         const questionsectionselement = document.createElement('ul');
         questionsectionselement.classList.add('points');
@@ -74,37 +74,80 @@ function hideElements(SectionCatergory) {
         questionsectionselement.style.float = 'left';
 
         const questionelement = document.createElement('li');
+        questionelement.style.textAlign = 'center';
         const instructionelement = document.createElement('li');
+        instructionelement.setAttribute('id', i);
 
+        questionsectionselement.appendChild(instructionelement);
         questionsectionselement.appendChild(questionelement);
         quizelement.appendChild(questionsectionselement);
 
-        var answers;
-
         const form = document.createElement('form');
-        const label = document.createElement('label');
         const ans1input = document.createElement('input');
         const ans2input = document.createElement('input');
         const submitButton = document.createElement('input');
 
-        form.setAttribute('action', '/action_page.php');
-        label.setAttribute('for', 'fname');
-        label.textContent = 'x = ';
         ans1input.setAttribute('type', 'text');
-        ans1input.setAttribute('id', 'fname');
-        ans1input.setAttribute('name', 'fname');
+        ans1input.setAttribute('name', i + 'answer1'); 
+        ans1input.setAttribute('placeholder', 'Answer 1'); 
         ans2input.setAttribute('type', 'text');
-        ans2input.setAttribute('id', 'lname');
-        ans2input.setAttribute('name', 'lname');
+        ans2input.setAttribute('name', i + 'answer2'); 
+        ans2input.setAttribute('placeholder', 'Answer 2'); 
         submitButton.setAttribute('type', 'submit');
+        submitButton.setAttribute('id', i);
         submitButton.setAttribute('value', 'Submit');
 
-        form.appendChild(label);
-        form.appendChild(fnameInput);
-        form.appendChild(lnameInput);
+        form.appendChild(ans1input);
+        form.appendChild(ans2input);
         form.appendChild(submitButton);
 
         questionsectionselement.appendChild(form);
+
+        submitButton.addEventListener('click', function(event) {
+            event.preventDefault();
+        
+            var questionnumber = submitButton.id
+            var ans1Value = ans1input.value; 
+            var ans2Value = ans2input.value; 
+
+            if (instructionelement.innerText === 'Solve for x') {
+                let conition1 = Number(ans1Value) === answers[questionnumber-1].root1 && Number(ans2Value) === answers[questionnumber-1].root2
+                var conition2 = Number(ans2Value) === answers[questionnumber-1].root1 && Number(ans1Value) === answers[questionnumber-1].root2
+
+                if (conition1 || conition2) {
+                    questionsectionselement.style.backgroundColor = "green";
+                } else {
+                    questionsectionselement.style.backgroundColor = "red";
+                }
+            } else if (instructionelement.innerText === 'Factorise Fully') {
+                var conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")"
+                var conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")"
+
+                if (answers[questionnumber-1].root1 === answers[questionnumber-1].root2) {
+                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + "^2"
+                }
+
+                if (answers[questionnumber-1].root1 === 0) {
+                    conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
+                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")x";
+                } else if (answers[questionnumber-1].root2 === 0) {
+                    conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")";
+                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")x";
+                }
+
+                console.log(ans1Value,conition1, conition2, FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")")
+
+                if (conition1 || conition2) {
+                    questionsectionselement.style.backgroundColor = "green";
+                } else {
+                    questionsectionselement.style.backgroundColor = "red";
+                }
+            }
+
+            ans1input.disabled = true;
+            ans2input.disabled = true;
+            submitButton.disabled = true;
+        });
 
         if (SectionCatergory == "Factorise") {
             var quadratic = Non_Fraction_Quadratic({
@@ -116,12 +159,29 @@ function hideElements(SectionCatergory) {
                 root2max: i*3,
             });
 
-            let questionsubcategory = randomchoice(['Solve','Factor'])
-            questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + '';
-            answers = [quadratic.root1,quadratic.root2]
-
+            let questionsubcategory = randomchoice(['Solve for x','Factorise Fully'])
+            instructionelement.innerText = questionsubcategory
+            answers.push({
+                root1: quadratic.root1,
+                root2: quadratic.root2, 
+                a: quadratic.a,
+                b: quadratic.b,
+                c: quadratic.c,
+            });   
+       
+            if (questionsubcategory === 'Solve for x') {
+                questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + ' = 0';
+            }
+            else if (questionsubcategory === 'Factorise Fully') {
+                questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'');
+                ans2input.style.display = "none";
+                ans1input.setAttribute('placeholder', '- a(x ± α)(x ± β)');
+            }
 
             
         }
+
+
+        
     }   
 }
