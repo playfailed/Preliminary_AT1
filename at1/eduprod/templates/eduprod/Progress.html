@@ -1,35 +1,5 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Progress</title>
-    <link href="{% static 'users/styles.css' %}" rel="stylesheet"> 
-    <nav>
-        <ul>
-            <li>
-                <form action="{% url 'eduprod:index' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Home</button>
-                </form>
-            </li>
-            <li>
-                <form action="{% url 'users:logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Log out</button>
-                </form>
-            </li>
-        </ul>
-     </nav>
-</head>
-<body>
-    {% if messages %}
-        <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-
+{% extends "eduprod/layout.html" %}
+{% block body %}
     <div class="grid-container">
         {% for result in results %}
         <ol style="list-style-type:none;">
@@ -43,7 +13,4 @@
         </ol>
         {% endfor %}
     </div>
-
-    
-</body>
-</html>
+{% endblock %}
