@@ -172,8 +172,6 @@ function hideElements(SectionCatergory) {
                 useranswer = FormatNumber(ans0Value) + "(x+("+FormatNumber(ans1Value)+"))(x+("+FormatNumber(ans2Value)+")";
                 answer = FormatNumber(answers[questionnumber-1].a,"(") + "x" + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x" + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
 
-                console.log()
-
                 if (Number(ans0Value) === answers[questionnumber-1].a && (conition1 || conition2)) {
                     IsCorrect = true;
                     questionsectionselement.style.backgroundColor = "green";
@@ -193,20 +191,23 @@ function hideElements(SectionCatergory) {
                     IsCorrect = true;
                 } else {
                     questionsectionselement.style.backgroundColor = "red";
-                    questionelement.innerHTML = "Answer was " + FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(d,"") + ")<sup>2</sup> " + FormatNumber(e,"")
+                    questionelement.innerHTML = "Answer was " + FormatNumber(answers[questionnumber-1].a,"(") + "x" + FormatNumber(d,"") + ")<sup>2</sup> " + FormatNumber(e,"")
                 }
             } else if (instructionelement.innerText == 'Solve for x with ±') {
-                var M = ((-answers[questionnumber-1].b)/(2 * answers[questionnumber-1].a))/answers[questionnumber-1].a;
-                var D = M**2 - answers[questionnumber-1].c
+                var M = ((-answers[questionnumber-1].b)/(2 * answers[questionnumber-1].a));
+                var D = (M*M) - answers[questionnumber-1].c/answers[questionnumber-1].a
+
                 var Imginary = D < 0
                 D = Math.abs(D)
                 var U = (D)**0.5;
                 var issimplifedroot = Number.isInteger(U);
                 
-                useranswer = "Constant: " + ans0Value + ". Difference: " + ans1Value
-                answer = M + " ± " + (issimplifedroot ? U : "√"+D);
+                console.log(M, D, U, Imginary)
 
-                if (Number(ans0Value) === M && (ans1Value === "√"+D || ans1Value === U) && ans2Value.includes('i') == Imginary) {
+                useranswer = "Constant: " + ans0Value + ". Difference: " + ans1Value + ans2Value
+                answer = M + " ± " + (issimplifedroot ? U : "√"+D) + (Imginary ? "i" : "");
+
+                if (Number(ans0Value) === M && (ans1Value === "√"+D || Number(ans1Value) === U) && ans2Value.includes('i') == Imginary) {
                     questionsectionselement.style.backgroundColor = "green";
                     IsCorrect = true;
                 } else {
@@ -217,8 +218,6 @@ function hideElements(SectionCatergory) {
                 var M = ((answers[questionnumber-1].root1 + answers[questionnumber-1].root2)/2);
                 useranswer = "Midpoint: " + ans1Value
                 answer = M
-
-                console.log(M,ans1Value)
 
                 if (Number(ans1Value) === Number(M)) {
                     IsCorrect = true;
