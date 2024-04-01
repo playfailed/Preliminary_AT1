@@ -43,11 +43,8 @@ function FormatNumber(num, constant) {
         str = str.replace('-1', '-');
     }
 
-    if (str.includes("-")) {
-        str = str.replace('-', '- ')
-    } 
-    else if (constant !== "x<sup>2</sup>" && constant !== "(" && constant !== "x(") {
-        str = "+ " + str 
+    if (constant !== "x<sup>2</sup>" && constant !== "(" && constant !== "x(") {
+        str = "+" + str 
     }
     
     str = str + constant;
@@ -57,7 +54,6 @@ function FormatNumber(num, constant) {
 
 function saveQuizResults(data) {
     var csrftoken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    console.log(data)
     fetch('/eduprod/save_quiz_results', {
         method: 'POST',
         headers: {
@@ -68,11 +64,7 @@ function saveQuizResults(data) {
         body: JSON.stringify(data)
     })
     .then(response => {
-        console.log(response);
         return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -116,23 +108,24 @@ function hideElements(SectionCatergory) {
         const label0 = document.createElement('label');
         const label1 = document.createElement('label');
         const label2 = document.createElement('label');
+        const label3 = document.createElement('label');
         const submitButton = document.createElement('input');
         
         form.setAttribute("action","/eduprod/save_quiz_results")
         form.setAttribute("method","POST")
         ans0input.setAttribute('type', 'text');
-        ans0input.setAttribute('name', i + 'answer0'); 
-        ans0input.setAttribute('placeholder', 'Answer 0'); 
-        ans0input.style.display = "none";
         ans1input.setAttribute('type', 'text');
-        ans1input.setAttribute('name', i + 'answer1'); 
-        ans1input.setAttribute('placeholder', 'Answer 1'); 
         ans2input.setAttribute('type', 'text');
-        ans2input.setAttribute('name', i + 'answer2'); 
-        ans2input.setAttribute('placeholder', 'Answer 2'); 
-        submitButton.setAttribute('type', 'submit');
+        ans0input.setAttribute('name', i + 'answer0'); 
+        ans1input.setAttribute('name', i + 'answer1'); 
+        ans2input.setAttribute('name', i + 'answer2');  
+        ans0input.setAttribute('placeholder', 'a');
+        ans1input.setAttribute('placeholder', 'α');
+        ans2input.setAttribute('placeholder', 'β');
         submitButton.setAttribute('id', i);
-        submitButton.setAttribute('value', 'Submit');
+        submitButton.setAttribute('type', 'submit');
+        submitButton.setAttribute('value', 'Check');
+        ans0input.style.display = "none";
         submitButton.style.float = "right";
 
         form.appendChild(label0);
@@ -141,6 +134,7 @@ function hideElements(SectionCatergory) {
         form.appendChild(ans1input);
         form.appendChild(label2);
         form.appendChild(ans2input);
+        form.appendChild(label3);
         form.appendChild(submitButton);
 
         questionsectionselement.appendChild(form);
@@ -172,37 +166,27 @@ function hideElements(SectionCatergory) {
                     questionelement.innerHTML = "Answer was x = " + answers[questionnumber-1].root1 + " or " + answers[questionnumber-1].root2
                 }
             } else if (instructionelement.innerText === 'Factorise Fully') {
-                var conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")"
-                var conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")"
+                var conition1 = Number(ans1Value) === -answers[questionnumber-1].root1 && Number(ans2Value) === -answers[questionnumber-1].root2
+                var conition2 = Number(ans1Value) === -answers[questionnumber-1].root2 && Number(ans2Value) === -answers[questionnumber-1].root1
 
-                if (answers[questionnumber-1].root1 === answers[questionnumber-1].root2) {
-                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + "^2"
-                }
+                useranswer = FormatNumber(ans0Value) + "(x+("+FormatNumber(ans1Value)+"))(x+("+FormatNumber(ans2Value)+")";
+                answer = FormatNumber(answers[questionnumber-1].a,"(") + "x" + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x" + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
 
-                if (answers[questionnumber-1].root1 === 0) {
-                    conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
-                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")x";
-                } else if (answers[questionnumber-1].root2 === 0) {
-                    conition1 = ans1Value === FormatNumber(answers[questionnumber-1].a,"x(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")";
-                    conition2 = ans1Value === FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")x";
-                }
+                console.log()
 
-                useranswer = ans1Value;
-                answer = FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")";
-
-                if (conition1 || conition2) {
+                if (Number(ans0Value) === answers[questionnumber-1].a && (conition1 || conition2)) {
                     IsCorrect = true;
                     questionsectionselement.style.backgroundColor = "green";
                 } else {
                     questionsectionselement.style.backgroundColor = "red";
-                    questionelement.innerHTML = "Answer was " + FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")"
+                    questionelement.innerHTML = "Answer was " + FormatNumber(answers[questionnumber-1].a,"(") + "x" + FormatNumber(-answers[questionnumber-1].root1,"") + ")(x " + FormatNumber(-answers[questionnumber-1].root2,"") + ")"
                 }
             } else if (instructionelement.innerText == 'Factorise using complete the square') {
                 var d = answers[questionnumber-1].b/(2 * answers[questionnumber-1].a);
                 var e = answers[questionnumber-1].c - ((answers[questionnumber-1].b ** 2)/(4 * answers[questionnumber-1].a));
                 
                 useranswer = ans0Value + "(x" + ans1Value + ")^2 " + ans2Value
-                answer = FormatNumber(answers[questionnumber-1].a,"(") + "x " + FormatNumber(d,"") + ")^2 " + FormatNumber(e,"")
+                answer = FormatNumber(answers[questionnumber-1].a,"(") + "x" + FormatNumber(d,"") + ")^2 " + FormatNumber(e,"")
 
                 if (Number(ans0Value) === answers[questionnumber-1].a && Number(ans1Value) === d && Number(ans2Value) == e) {
                     questionsectionselement.style.backgroundColor = "green";
@@ -219,10 +203,10 @@ function hideElements(SectionCatergory) {
                 var U = (D)**0.5;
                 var issimplifedroot = Number.isInteger(U);
                 
-                useranswer = "Constant: " + ans0Value + ". Difference: " + ans1Value + ans1Value
+                useranswer = "Constant: " + ans0Value + ". Difference: " + ans1Value
                 answer = M + " ± " + (issimplifedroot ? U : "√"+D);
 
-                if (Number(ans0Value) === M && (Number(ans1Value) === "√"+D || Number(ans1Value) === U) && ans2Value.includes('i') == Imginary) {
+                if (Number(ans0Value) === M && (ans1Value === "√"+D || ans1Value === U) && ans2Value.includes('i') == Imginary) {
                     questionsectionselement.style.backgroundColor = "green";
                     IsCorrect = true;
                 } else {
@@ -230,11 +214,13 @@ function hideElements(SectionCatergory) {
                     questionelement.innerHTML = "Answer was " + M + " ± " + (issimplifedroot ? U : "√<root>"+D+"</root>") + (Imginary ? "i" : "");
                 }
             } else if (instructionelement.innerText == 'Find the mid point of the equation') {
-                var M = ((-answers[questionnumber-1].b)/(2 * answers[questionnumber-1].a));
-                useranswer = "Midpoint: " + ans1input
+                var M = ((answers[questionnumber-1].root1 + answers[questionnumber-1].root2)/2);
+                useranswer = "Midpoint: " + ans1Value
                 answer = M
 
-                if (Number(ans1input) === M) {
+                console.log(M,ans1Value)
+
+                if (Number(ans1Value) === Number(M)) {
                     IsCorrect = true;
                     questionsectionselement.style.backgroundColor = "green";
                 } else {
@@ -247,8 +233,6 @@ function hideElements(SectionCatergory) {
             ans1input.disabled = true;
             ans2input.disabled = true;
             submitButton.disabled = true;
-
-            console.log(SectionCatergory,instructionelement.innerText)
 
             saveQuizResults({
                 question_text: question,
@@ -271,8 +255,6 @@ function hideElements(SectionCatergory) {
                     }
                 }
             }
-
-            
 
             if (isdone) {
                 const endblock = document.createElement('ul');
@@ -324,26 +306,26 @@ function hideElements(SectionCatergory) {
         if (questionsubcategory === 'Solve for x') {
             questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + ' = 0';
             label1.innerHTML = "x = ";
+            label2.innerHTML = " or ";
         } else if (questionsubcategory === 'Factorise Fully') {
             questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'');
-            ans2input.style.display = "none";
-            ans1input.setAttribute('placeholder', '- a(x ± α)(x ± β)');
+            ans0input.style.display = "inline";
+            label1.innerHTML = "(x+";
+            label2.innerHTML = ")(x+";
+            label3.innerHTML = ")";
         } else if (questionsubcategory === 'Solve for x with ±') {
             questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + ' = 0';
             ans0input.style.display = "inline";
-            label0.innerHTML = "x =";
+            label0.innerHTML = "x = ";
             ans0input.setAttribute('placeholder', 'α');
-            label1.innerHTML = "±";
+            label1.innerHTML = " ± ";
             ans1input.setAttribute('placeholder', 'β');
             ans2input.setAttribute('placeholder', 'add i if √-1');
         } else if (questionsubcategory === 'Factorise using complete the square') {
             questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'');
             ans0input.style.display = "inline";
-            ans0input.setAttribute('placeholder', 'a');
             label1.innerHTML = "(x ";
-            ans1input.setAttribute('placeholder', '± α');
             label2.innerHTML = ")<sup>2</sup> ";
-            ans2input.setAttribute('placeholder', '± β');
         } else if (questionsubcategory === 'Find the mid point of the equation') {
             questionelement.innerHTML = FormatNumber(quadratic.a,'x<sup>2</sup>') + ' ' + FormatNumber(quadratic.b, 'x') + ' ' + FormatNumber(quadratic.c,'') + ' = 0';
             label1.innerHTML = "x = ";

@@ -3,8 +3,7 @@
 <html lang="en">
 <head>
     <title>Progress</title>
-    <link href="{% static 'users/styles.css' %}" rel="stylesheet">
-    <script src="{% static 'eduprod/results.js' %}" defer></script>
+    <link href="{% static 'users/styles.css' %}" rel="stylesheet"> 
     <nav>
         <ul>
             <li>
@@ -30,5 +29,21 @@
         {% endfor %}
         </ul>
     {% endif %}
+
+    <div class="grid-container">
+        {% for result in results %}
+        <ol style="list-style-type:none;">
+            <li>Section: {{result.category}}</li>
+            <li>‎ </li>
+            <li>{{result.subcategory}}: {{result.question_text}}</li>
+            <li>‎ </li>
+            <li>‎ </li>
+            <li>{{result.users}} Answered: {{result.useranswer}}</li>
+            <li>Set Answer is {{result.answer_text}}</li>
+        </ol>
+        {% endfor %}
+    </div>
+
+    
 </body>
 </html>

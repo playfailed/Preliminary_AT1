@@ -1,13 +1,12 @@
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import Results
 import json
 
 def save_quiz_results(request):
-    print(request)
     if request.method == 'POST':
         data = json.loads(request.body)
         question_text = data.get('question_text')
@@ -53,5 +52,5 @@ def Test(request):
 
 def Progress(request):
     results = Results.objects.all()
-    questions_json = serializers.serialize('json', results)
-    return render(request, "eduprod/Progress.html", {'questions_json': questions_json})
+    print(results)
+    return render(request, "eduprod/Progress.html", {'results': results})
