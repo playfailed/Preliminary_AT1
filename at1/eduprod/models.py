@@ -8,8 +8,8 @@ class Results(models.Model):
     users = models.CharField(max_length=255)
     iscorrect = models.BooleanField(default=False)
     useranswer = models.CharField(max_length=255, default='')
-    catergory = models.CharField(max_length=255)
-    subcatergory = models.CharField(max_length=255)
+    category = models.CharField(max_length=255) # Added field
+    subcategory = models.CharField(max_length=255) # Added field
 
     def __str__(self):
         return self.question_text

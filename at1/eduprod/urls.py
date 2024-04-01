@@ -8,4 +8,5 @@ urlpatterns = [
     path('Formula', views.Formula, name='Formula'),
     path('Test', views.Test, name='Test'),
     path('Progress', views.Progress, name='Progress'),
+    path('save_quiz_results', views.save_quiz_results, name='save_quiz_results'),
 ]
