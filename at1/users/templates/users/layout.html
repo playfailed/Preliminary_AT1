@@ -1,9 +1,12 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>Quadratics</title>
+    <!--Reference to Javascript and CSS-->
     <link href="{% static 'users/styles.css' %}" rel="stylesheet">
+    <script src="{% static 'eduprod/quiz.js' %}" defer></script>
+    <!--Navigation Bar-->
     <nav>
         <ul>
             <li>
@@ -19,16 +22,21 @@
                 </form>
             </li>
         </ul>
-     </nav>
+    </nav>
+    <!--Navigation Bar-->
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <meta name="user" content="{{ request.user.username }}">
 </head>
 <body>
+    <!--Message from the Login-->
     {% if messages %}
         <ul class="messages">
         {% for message in messages %}
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
         </ul>
-    {% endif %}    
+    {% endif %}
+    <!--A extra content will be here due to this page is a template for all pages.-->
     {% block body %}
     {% endblock %}
 </body>

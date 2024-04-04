@@ -1,6 +1,8 @@
 {% extends "eduprod/layout.html" %}
 {% block body %} 
 <h1>Complete the Square</h1>
+<!--Here is the Infomation for Completing the Square for quadratics-->
+<!--General Steps for Completing the sqaure-->
 <p>To solve quadratic equations through Completing the Square, follow these steps:</p>
 <ol>
     <li>Identify the Quadratic Equation: <br>
@@ -9,7 +11,7 @@
     <br>
     <li>Add the term to complete the square: <br>
         If there is a c term within the quadratic move it to ther other side. <br>
-        Add (<fraction><numerator>b</numerator><denominator>2</denominator></fraction>)<sup>2</sup> to both sides of the equation.
+        Add (<fraction><numerator>b</numerator><denominator>2a</denominator></fraction>)<sup>2</sup> to both sides of the equation.
     </li>
     <br>
     <li>Factor the perfect square trinomial: <br>
@@ -22,6 +24,8 @@
     </li>
 </ol>
 
+<!--Here is an example-->
+
 <p>Here is an Example.</p>
 <p>Solve the quadratic equation: x<sup>2</sup> + 8x + 5 = 0 </p>
 
@@ -33,7 +37,7 @@
     <li>Add the term to complete the square: <br>
         Move the c term to the otherside <br>
         x<sup>2</sup> + 8x = -5 <br>
-        Adding (<fraction><numerator>2</numerator><denominator>2</denominator></fraction>)<sup>2</sup> to both sides of the equation. <br>
+        Adding (<fraction><numerator>2</numerator><denominator>2a</denominator></fraction>)<sup>2</sup> to both sides of the equation. <br>
         x<sup>2</sup> + 8x + (<fraction><numerator>8</numerator><denominator>2</denominator></fraction>)<sup>2</sup> = -5 + (<fraction><numerator>8</numerator><denominator>2</denominator></fraction>)<sup>2</sup> <br> 
         x<sup>2</sup> + 8x + <fraction><numerator>64</numerator><denominator>4</denominator></fraction> = -5 +<fraction><numerator>64</numerator><denominator>4</denominator></fraction> <br>
         x<sup>2</sup> + 8x + 16 = -5 + 16 <br>
@@ -65,6 +69,8 @@
 
 <p>Hence, the solutions to the quadratic equation x<sup>2</sup> - 7x + 12 = 0 are x = -4 ± √<root>11</root></p>
 
+<!--Here is an harder example-->
+
 <p>Here is another Example.</p>
 <p>Solve the quadratic equation: 2x<sup>2</sup> + 3x + 9 = 0 </p>
 
@@ -78,7 +84,7 @@
         2x<sup>2</sup> + 3x = -9 <br>
         Since this quadratic is non monic you must divide the whole equation by a. <br>
         x<sup>2</sup> + <fraction><numerator>3x</numerator><denominator>2</denominator></fraction> = -<fraction><numerator>9</numerator><denominator>2</denominator></fraction> <br>
-        Adding (<fraction><numerator>b</numerator><denominator>2</denominator></fraction>)<sup>2</sup> to both sides of the equation. <br>
+        Adding (<fraction><numerator>b</numerator><denominator>2a</denominator></fraction>)<sup>2</sup> to both sides of the equation. <br>
         x<sup>2</sup> + <fraction><numerator>3x</numerator><denominator>2</denominator></fraction> + (<fraction><numerator>3</numerator><denominator>4</denominator></fraction>)<sup>2</sup> = (<fraction><numerator>3</numerator><denominator>4</denominator></fraction>)<sup>2</sup> -<fraction><numerator>9</numerator><denominator>2</denominator></fraction> <br>
         x<sup>2</sup> + <fraction><numerator>3x</numerator><denominator>2</denominator></fraction> + <fraction><numerator>9</numerator><denominator>16</denominator></fraction> = <fraction><numerator>9</numerator><denominator>16</denominator></fraction> -<fraction><numerator>9</numerator><denominator>2</denominator></fraction> <br>
         x<sup>2</sup> + <fraction><numerator>3x</numerator><denominator>2</denominator></fraction> + <fraction><numerator>9</numerator><denominator>16</denominator></fraction> = <fraction><numerator>9</numerator><denominator>16</denominator></fraction> -<fraction><numerator>72</numerator><denominator>16</denominator></fraction> <br>
@@ -124,6 +130,8 @@
 
 <p>Hence, there are no real solutions.</p>
 <p>The imaginary solutions to the quadratic equation 2x<sup>2</sup> + 3x + 9 = 0 are x = <fraction><numerator>- 3 ± 3√<root>-7</root></numerator><denominator>4</denominator></fraction></p>
+
+<!--Button that activates the quiz-->
 
 <button onclick="hideElements('Complete')">Practice</button>
 {% endblock %}

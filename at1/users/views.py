@@ -5,11 +5,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+#Index template that redirects the user to login page if not login
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("users:login"))
     return render(request, "users/user.html")
 
+#Authenticate User to the system
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -23,6 +25,7 @@ def login_view(request):
             return render(request, "users/login.html")
     return render(request, "users/login.html")
 
+#Unauthenticate User to the system
 def logout_view(request):
     logout(request)
     messages.success(request, "Successfully logged out.")

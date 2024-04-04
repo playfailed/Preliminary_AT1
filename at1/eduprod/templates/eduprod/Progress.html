@@ -1,6 +1,9 @@
 {% extends "eduprod/layout.html" %}
 {% block body %}
+    <!--Here is the Progress for the test-->
     <div class="grid-container">
+        <!--The below just loop for every data in results and display it to user-->
+
         {% for result in results %}
         <ol style="list-style-type:none;">
             <li>Section: {{result.category}}</li>

@@ -1,5 +1,6 @@
 {% extends "users/layout.html" %}
 {% block body %}
+<!--A login Forum-->
 <form action="{% url 'users:login' %}" method="post">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Username">

@@ -9,6 +9,7 @@ import json
 def save_quiz_results(request):
     if request.method == 'POST':
         data = json.loads(request.body)
+        # Get data an assign it to variables
         question_text = data.get('question_text')
         answer_text = data.get('answer_text')
         users = data.get('users')
@@ -17,7 +18,7 @@ def save_quiz_results(request):
         category = data.get('category')
         subcategory = data.get('subcategory')
 
-        # Create a new instance of the Results model
+        # Create a new instance of the Results model by assign it's attributes to the variables
         result = Results(
             question_text=question_text,
             answer_text=answer_text,
@@ -27,12 +28,13 @@ def save_quiz_results(request):
             category=category,
             subcategory=subcategory
         )
+        
         result.save()
 
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
-
+# For any templates here, the user must be authenticate to access.
 @login_required
 
 def index(request):
@@ -51,6 +53,6 @@ def Test(request):
     return render(request, 'eduprod/Test.html')
 
 def Progress(request):
+    # The results models
     results = Results.objects.all()
-    print(results)
     return render(request, "eduprod/Progress.html", {'results': results})
